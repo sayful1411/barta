@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,13 +25,17 @@ Route::get("register", [RegisterController::class,"registerPage"])->name("regist
 Route::post("register", [RegisterController::class,"register"])->name('register.submit');
 Route::get("logout", [LogoutController::class,"logout"])->name('logout');
 
-// User Route
+// Middleware Route
 Route::middleware(['web','auth'])->group(function(){
+    // User Route
     Route::get('/', [UserController::class,'indexPage'])->name('index');
     Route::get('profile', [UserController::class,'profilePage'])->name('profile');
     Route::get('edit-profile', [UserController::class,'profileEditPage'])->name('profile.edit');
     Route::post('edit-profile', [UserController::class,'editProfile'])->name('profile.edit.submit');
     Route::get('setting', [UserController::class,'profileSettingPage'])->name('profile.setting');
     Route::post('setting', [UserController::class,'profileSetting'])->name('profile.setting.submit');
+
+    // Post Route
+    Route::post('/posts', [PostController::class,'store'])->name('post.store');
 });
 
