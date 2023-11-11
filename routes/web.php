@@ -16,8 +16,9 @@ Route::get("register", [RegisterController::class,"registerPage"])->name("regist
 Route::post("register", [RegisterController::class,"register"])->name('register.submit');
 Route::get("logout", [LogoutController::class,"logout"])->name('logout');
 
-// User Route
+// Middleware Route
 Route::middleware(['web','auth'])->group(function(){
+
     Route::get('/', [HomeController::class,'indexPage'])->name('index');
 
     Route::get('profile', [ProfileController::class,'profilePage'])->name('profile');
@@ -29,5 +30,6 @@ Route::middleware(['web','auth'])->group(function(){
     Route::post('setting', [ProfileController::class,'profileSetting'])->name('profile.setting.submit');
 
     Route::get('user/{username}', [UserController::class,'userProfilePage'])->name('user.profile');
+
 });
 
