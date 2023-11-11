@@ -4,6 +4,7 @@ namespace App\View\Composers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserComposer{
 
