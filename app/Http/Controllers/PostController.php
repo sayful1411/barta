@@ -2,13 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    public function store(PostRequest $request){
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(PostRequest $request)
+    {
         $validatedPost = $request->validated();
         $userID = auth()->user()->id;
 
@@ -17,9 +39,53 @@ class PostController extends Controller
             "user_id" => $userID,
             "description" => $validatedPost["barta"],
             "created_at" => now(),
-            "updated_at" => now()
+            "updated_at" => now(),
         ]);
 
-        return redirect()->route("index")->with("success","Post Created");
+        return redirect()->route("index")->with("success", "Post Created");
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $uuid)
+    {
+        $post = DB::table("posts")
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.fname as user_fname', 'users.lname as user_lname', 'users.username as user_username', 'users.email as user_email')
+            ->where("uuid", $uuid)
+            ->first();
+
+        $post->created_at = Carbon::parse($post->created_at);
+
+        if (!$post) {
+            return redirect()->back()->with("error", "Post Not Found");
+        }
+
+        return view("pages.posts.single-posts", compact("post"));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

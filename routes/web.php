@@ -32,7 +32,7 @@ Route::middleware(['web','auth'])->group(function(){
 
     Route::get('user/{username}', [UserController::class,'userProfilePage'])->name('user.profile');
 
-    Route::post('post', [PostController::class, 'store'])->name('post.store');
+    Route::resource('posts', PostController::class);
 
 });
 

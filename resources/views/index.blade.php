@@ -11,7 +11,7 @@
     @endif
 
     <!-- Barta Create Post Card -->
-    <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data"
+    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data"
         class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6 space-y-3">
         <!-- Create Post Card Top -->
         @csrf

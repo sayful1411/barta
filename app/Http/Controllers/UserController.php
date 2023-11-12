@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,10 @@ class UserController extends Controller
             return abort(404);
         }
 
-        return view("pages.user-profile", compact("user"));
+        // Check if the authenticated user matches the profile user
+        $isUserProfile = Auth::check() && Auth::id() === $user->id;
+
+        return view("pages.user-profile", compact("user","isUserProfile"));
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,21 @@ use App\Http\Requests\UserSettingRequest;
 class ProfileController extends Controller
 {
     public function profilePage(){
-        return view("pages.profile");
+        $loggedInUserId = Auth::id();
+
+        $posts = DB::table('posts')
+                ->join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.*', 'users.fname as user_fname', 'users.lname as user_lname', 'users.username as user_username','users.email as user_email')
+                ->where('posts.user_id', $loggedInUserId)
+                ->orderBy('id','desc')
+                ->get();
+
+        $posts = $posts->map(function ($post) {
+            $post->created_at = Carbon::parse($post->created_at);
+            return $post;
+        });
+
+        return view("pages.profile", compact("posts"));
     }
 
     public function profileEditPage(){

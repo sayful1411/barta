@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer(
-            ['index','pages.profile','pages.edit-profile', 'pages.setting'],
+            ['index','pages.profile','pages.edit-profile', 'pages.setting', 'pages.posts.single-posts'],
             UserComposer::class
         );
     }
