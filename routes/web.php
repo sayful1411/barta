@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::middleware(['web','auth'])->group(function(){
     Route::post('setting', [ProfileController::class,'profileSetting'])->name('profile.setting.submit');
 
     Route::get('user/{username}', [UserController::class,'userProfilePage'])->name('user.profile');
+
+    Route::post('post', [PostController::class, 'store'])->name('post.store');
 
 });
 
