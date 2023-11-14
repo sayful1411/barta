@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -68,17 +67,38 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        //
+        $post = DB::table("posts")->where("uuid", $uuid)->first();
+
+        $post->created_at = Carbon::parse($post->created_at);
+
+        if(auth()->user()->id != $post->user_id) {
+            return to_route("index");
+        }
+
+        if (!$post) {
+            return redirect()->back()->with("error", "Post Not Found");
+        }
+
+        return view("pages.posts.edit", compact("post"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostRequest $request, string $uuid)
     {
-        //
+        $validatedPost = $request->validated();
+
+        DB::table("posts")
+            ->where("uuid", $uuid)
+            ->update([
+                "description" => $validatedPost["barta"],
+                "updated_at" => now(),
+            ]);
+
+        return redirect()->back()->with("success", "Post Updated");
     }
 
     /**

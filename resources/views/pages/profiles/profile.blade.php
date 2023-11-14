@@ -26,16 +26,6 @@
         <!-- Profile Stats -->
         <div class="flex flex-row gap-16 justify-center text-center items-center">
             <!-- Total Posts Count -->
-            {{-- <div class="flex flex-col justify-center items-center">
-                <h4 class="sm:text-xl font-bold">3</h4>
-                <p class="text-gray-600">Posts</p>
-            </div>
-
-            <!-- Total Comments Count -->
-            <div class="flex flex-col justify-center items-center">
-                <h4 class="sm:text-xl font-bold">14</h4>
-                <p class="text-gray-600">Comments</p>
-            </div> --}}
         </div>
         <!-- /Profile Stats -->
 
@@ -48,7 +38,6 @@
                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125">
                 </path>
             </svg>
-
             Edit Profile
         </a>
         <!-- /Edit Profile Button -->
@@ -100,15 +89,6 @@
             <header>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                        <!-- User Avatar -->
-                        <!--                <div class="flex-shrink-0">-->
-                        <!--                  <img-->
-                        <!--                    class="h-10 w-10 rounded-full object-cover"-->
-                        <!--                    src="https://avatars.githubusercontent.com/u/831997"-->
-                        <!--                    alt="Tony Stark" />-->
-                        <!--                </div>-->
-                        <!-- /User Avatar -->
-
                         <!-- User Info -->
                         <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                             <a href="{{ route('profile') }}" class="hover:underline font-semibold line-clamp-1">
@@ -142,7 +122,7 @@
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                                 style="display: none;">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <a href="{{ route('posts.edit', $post->uuid) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem" tabindex="-1" id="user-menu-item-0">Edit</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem" tabindex="-1" id="user-menu-item-1">Delete</a>
@@ -184,8 +164,6 @@
             var el = this;
             setTimeout(function() {
                 el.style.cssText = 'min-height:37px; height: 37px;';
-                // for box-sizing other than "content-box" use:
-                // el.style.cssText = '-moz-box-sizing:content-box';
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
             }, 0);
         }

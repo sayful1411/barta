@@ -26,15 +26,15 @@ class ProfileController extends Controller
             return $post;
         });
 
-        return view("pages.profile", compact("posts"));
+        return view("pages.profiles.profile", compact("posts"));
     }
 
     public function profileEditPage(){
-        return view("pages.edit-profile");
+        return view("pages.profiles.edit-profile");
     }
 
     public function profileSettingPage(){
-        return view("pages.setting");
+        return view("pages.profiles.setting");
     }
 
     public function editProfile(UserProfileRequest $request){
