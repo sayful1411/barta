@@ -133,10 +133,10 @@
                     </div>
                     <div class="ml-3">
                         <div class="text-base font-medium text-gray-800">
-                            {{ $user->fname . ' ' . $user->lname }}
+                            {{ auth()->user()->fname . ' ' . auth()->user()->lname }}
                         </div>
                         <div class="text-sm font-medium text-gray-500">
-                            {{ $user->email }}
+                            {{ auth()->user()->email }}
                         </div>
                     </div>
                 </div>

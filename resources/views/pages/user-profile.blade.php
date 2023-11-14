@@ -24,8 +24,8 @@
 
             <!-- User Meta -->
             <div>
-                <h1 class="font-bold md:text-2xl">{{ $user->fname . ' ' . $user->lname }}</h1>
-                <p class="text-gray-700">{{ $user->bio }}</p>
+                <h1 class="font-bold md:text-2xl">{{ auth()->user()->fname . ' ' . auth()->user()->lname }}</h1>
+                <p class="text-gray-700">{{ auth()->user()->bio }}</p>
             </div>
             <!-- / User Meta -->
         </div>

@@ -49,7 +49,7 @@
                                 name</label>
                             <div class="mt-2">
                                 <input type="text" name="fname" id="fname" autocomplete="given-name"
-                                    value="{{ $user->fname }}"
+                                    value="{{ auth()->user()->fname }}"
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6  @error('fname') border-2 border-red-600 @enderror" />
                             </div>
                             @error('fname')
@@ -63,7 +63,7 @@
                             <label for="lname" class="block text-sm font-medium leading-6 text-gray-900">Last
                                 name</label>
                             <div class="mt-2">
-                                <input type="text" name="lname" id="lname" value="{{ $user->lname }}"
+                                <input type="text" name="lname" id="lname" value="{{ auth()->user()->lname }}"
                                     autocomplete="family-name"
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('lname') border-2 border-red-600 @enderror" />
                             </div>
@@ -79,7 +79,7 @@
                                 address</label>
                             <div class="mt-2">
                                 <input id="email" name="email" type="email" autocomplete="email"
-                                    value="{{ $user->email }}"
+                                    value="{{ auth()->user()->email }}"
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('email') border-2 border-red-600 @enderror" />
                             </div>
                             @error('email')
@@ -111,7 +111,7 @@
                         <label for="bio" class="block text-sm font-medium leading-6 text-gray-900">Bio</label>
                         <div class="mt-2">
                             <textarea id="bio" name="bio" rows="3"
-                                class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('bio') border-2 border-red-600 @enderror">{{ $user->bio }}</textarea>
+                                class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('bio') border-2 border-red-600 @enderror">{{ auth()->user()->bio }}</textarea>
                         </div>
                         <p class="mt-3 text-sm leading-6 text-gray-600">
                             Write a few sentences about yourself.

@@ -18,7 +18,7 @@ class UserController extends Controller
         // Check if the authenticated user matches the profile user
         $isUserProfile = Auth::check() && Auth::id() === $user->id;
 
-        return view("pages.user-profile", compact("user","isUserProfile"));
+        return view("pages.user-profile", compact("user", "isUserProfile"));
     }
 
 }
