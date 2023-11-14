@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -61,6 +62,8 @@ class PostController extends Controller
             return redirect()->back()->with("error", "Post Not Found");
         }
 
+        DB::table('posts')->where('id',$post->id)->increment('view_count');
+
         return view("pages.posts.single-posts", compact("post"));
     }
 
@@ -104,8 +107,22 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $postId = $request->post_delete_id;
+
+        $post = DB::table("posts")->where("id", $postId)->first();
+
+        if(!$post) {
+            return to_route("index")->with("error", "Post not found!");
+        }
+
+        if(auth()->user()->id != $post->user_id) {
+            return to_route("index");
+        }
+
+        DB::table("posts")->where("id", $postId)->delete();
+
+        return to_route("index")->with("success","Post deleted");
     }
 }
