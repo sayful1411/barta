@@ -113,8 +113,8 @@ class PostController extends Controller
 
         $post = DB::table("posts")->where("id", $postId)->first();
 
-        if(!$post) {
-            return to_route("index")->with("error", "Post not found!");
+        if ($post == null) {
+            return abort(404);
         }
 
         if(auth()->user()->id != $post->user_id) {
