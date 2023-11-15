@@ -56,11 +56,11 @@ class PostController extends Controller
             ->where("uuid", $uuid)
             ->first();
 
-        $post->created_at = Carbon::parse($post->created_at);
-
-        if (!$post) {
-            return redirect()->back()->with("error", "Post Not Found");
+        if ($post == null) {
+            return abort(404);
         }
+
+        $post->created_at = Carbon::parse($post->created_at);
 
         DB::table('posts')->where('id',$post->id)->increment('view_count');
 
@@ -74,15 +74,15 @@ class PostController extends Controller
     {
         $post = DB::table("posts")->where("uuid", $uuid)->first();
 
-        $post->created_at = Carbon::parse($post->created_at);
+        if ($post == null) {
+            return abort(404);
+        }
 
         if(auth()->user()->id != $post->user_id) {
             return to_route("index");
         }
 
-        if (!$post) {
-            return redirect()->back()->with("error", "Post Not Found");
-        }
+        $post->created_at = Carbon::parse($post->created_at);
 
         return view("pages.posts.edit", compact("post"));
     }
