@@ -210,6 +210,8 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <script>
         var textarea = document.querySelector('textarea');
 
@@ -222,5 +224,13 @@
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
             }, 0);
         }
+
+        $(document).ready(function() {
+            $('.deletePostBtn').click(function(e) {
+                e.preventDefault();
+                var postId = $(this).data('post-id');
+                $('#post_id').val(postId);
+            });
+        });
     </script>
 @endpush
