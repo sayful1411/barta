@@ -210,7 +210,9 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        // auto expand post area
         var textarea = document.querySelector('textarea');
 
         textarea.addEventListener('keydown', autosize);
@@ -222,5 +224,14 @@
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
             }, 0);
         }
+
+        // post delete
+        $(document).ready(function() {
+            $('.deletePostBtn').click(function(e) {
+                e.preventDefault();
+                var postId = $(this).data('post-id');
+                $('#post_id').val(postId);
+            });
+        });
     </script>
 @endpush

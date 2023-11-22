@@ -4,8 +4,7 @@
 
 @section('content')
     @if (session('success'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
-            role="alert">
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
             <span class="font-medium">{{ session('success') }}</span>
         </div>
     @endif
@@ -188,7 +187,9 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        // auto expand post area
         var textarea = document.querySelector('textarea');
 
         textarea.addEventListener('keydown', autosize);
@@ -200,5 +201,14 @@
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
             }, 0);
         }
+
+        // post delete
+        $(document).ready(function() {
+            $('.deletePostBtn').click(function(e) {
+                e.preventDefault();
+                var postId = $(this).data('post-id');
+                $('#post_id').val(postId);
+            });
+        });
     </script>
 @endpush
