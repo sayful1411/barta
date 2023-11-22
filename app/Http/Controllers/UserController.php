@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    public function userProfilePage($username){
+    public function index($username){
         $user = DB::table("users")->where("username", $username)->first();
 
         if (empty($user)) {

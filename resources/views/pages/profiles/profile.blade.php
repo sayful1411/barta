@@ -4,7 +4,7 @@
 
 @section('content')
     @if (session('error'))
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
             <span class="font-medium">{{ session('error') }}</span>
         </div>
     @endif
@@ -75,7 +75,7 @@
         <!-- /Create Post Card Bottom -->
     </form>
     @error('barta')
-        <div class="p-2 m-0 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+        <div class="p-2 m-0 text-sm text-red-500 rounded-lg" role="alert">
             {{ $message }}
         </div>
     @enderror

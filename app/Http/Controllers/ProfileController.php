@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UserProfileRequest;
 use App\Http\Requests\UserSettingRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
-    public function profilePage(){
+    public function index()
+    {
         $loggedInUserId = Auth::id();
 
         $posts = DB::table('posts')
@@ -29,15 +35,18 @@ class ProfileController extends Controller
         return view("pages.profiles.profile", compact("posts"));
     }
 
-    public function profileEditPage(){
+    public function edit()
+    {
         return view("pages.profiles.edit-profile");
     }
 
-    public function profileSettingPage(){
+    public function profileSettingPage()
+    {
         return view("pages.profiles.setting");
     }
 
-    public function editProfile(UserProfileRequest $request){
+    public function update(UserProfileRequest $request)
+    {
         $validated = $request->validated();
 
         // get the authenticated user's id
@@ -57,25 +66,21 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('success', 'User information updated successfully');
     }
 
-    public function profileSetting(UserSettingRequest $request){
-        $validated = $request->validated();
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     $request->validateWithBag('userDeletion', [
+    //         'password' => ['required', 'current_password'],
+    //     ]);
 
-        // get the authenticated user's id and password
-        $userID = Auth::user()->id;
-        $userPassword = Auth::user()->password;
+    //     $user = $request->user();
 
-        if(!Hash::check($validated['current_password'], $userPassword)) {
-            return redirect()->route('profile.setting')->with('error', 'Current password is not correct');
-        }
+    //     Auth::logout();
 
-        // If the current password is correct, update the user's password
-        DB::table('users')
-            ->where('id', $userID)
-            ->update([
-                'password' => Hash::make($validated['new_password']),
-                'updated_at' => now(),
-            ]);
+    //     $user->delete();
 
-        return redirect()->route('profile.setting')->with('success', 'Successfully changed password');
-    }
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     return Redirect::to('/login');
+    // }
 }
