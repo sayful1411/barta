@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -17,6 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/users/{username}', [UserController::class, 'index'])->name('users.profile');
 
     Route::resource('/posts', PostController::class);
+
+    Route::resource('posts.comments', CommentController::class)->except([
+        'index', 'create', 'show'
+    ]);;
 });
 
 require __DIR__.'/auth.php';

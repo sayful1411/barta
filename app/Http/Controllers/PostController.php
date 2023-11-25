@@ -64,7 +64,18 @@ class PostController extends Controller
 
         DB::table('posts')->where('id',$post->id)->increment('view_count');
 
-        return view("pages.posts.single-posts", compact("post"));
+        $comments = DB::table('comments')
+                        ->join('users', 'users.id', '=', 'comments.user_id')
+                        ->select('comments.*', 'users.fname as user_fname', 'users.lname as user_lname', 'users.username as username')
+                        ->where('post_id', $post->id)
+                        ->get();
+
+        $comments = $comments->map(function ($comment) {
+            $comment->created_at = Carbon::parse($comment->created_at);
+            return $comment;
+        });
+
+        return view("pages.posts.single-posts", compact("post", "comments"));
     }
 
     /**
