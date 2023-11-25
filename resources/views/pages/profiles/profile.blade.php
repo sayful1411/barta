@@ -91,11 +91,11 @@
                         <!-- User Info -->
                         <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                             <a href="{{ route('profile') }}" class="hover:underline font-semibold line-clamp-1">
-                                {{ $post->user_fname . ' ' . $post->user_lname }}
+                                {{ $post->user->fname . ' ' . $post->user->lname }}
                             </a>
 
                             <a href="{{ route('profile') }}" class="hover:underline text-sm text-gray-500 line-clamp-1">
-                                {{ '@' . $post->user_username }}
+                                {{ '@' . $post->user->username }}
                             </a>
                         </div>
                         <!-- /User Info -->
@@ -199,7 +199,7 @@
 
             <!-- Date Created & View Stat -->
             <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
-                <span class="">{{ $post->created_at->diffForHumans() }}</span>
+                <span class="">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
                 <span class="">•</span>
                 <span>{{ $post->view_count }} views</span>
             </div>
@@ -220,7 +220,7 @@
                                 </path>
                             </svg>
 
-                            <p>{{ $post->comment_count }}</p>
+                            <p>{{ $post->comments->count() }}</p>
                         </a>
                         <!-- /Comment Button -->
                     </div>
