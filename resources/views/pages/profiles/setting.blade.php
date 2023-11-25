@@ -4,19 +4,20 @@
 
 @section('content')
     @if (session('error'))
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
             <span class="font-medium">{{ session('error') }}</span>
         </div>
     @endif
     @if (session('success'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
             role="alert">
             <span class="font-medium">{{ session('success') }}</span>
         </div>
     @endif
     <!-- Password Change Form -->
-    <form action="{{ route('profile.setting.submit') }}" method="POST">
+    <form method="POST" action="{{ route('password.update') }}">
         @csrf
+        @method('PUT')
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-xl font-semibold leading-7 text-gray-900">
@@ -40,8 +41,8 @@
                                     autocomplete="current-password" placeholder="••••••••"
                                     class="block w-full rounded-md border-0 p-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 @error('current_password') border-2 border-red-600 @enderror" />
                             </div>
-                            @error('current_password')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                            @error('current_password','updatePassword')
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -49,15 +50,15 @@
 
                         <!-- New Password -->
                         <div class="col-span-full">
-                            <label for="new_password" class="block text-sm font-medium leading-6 text-gray-900">New
+                            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">New
                                 Password</label>
                             <div class="mt-2">
-                                <input id="new_password" name="new_password" type="password" autocomplete="new-password"
+                                <input id="password" name="password" type="password" autocomplete="new-password"
                                     placeholder="••••••••"
-                                    class="block w-full rounded-md border-0 p-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 @error('new_password') border-2 border-red-600 @enderror" />
+                                    class="block w-full rounded-md border-0 p-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 @error('password') border-2 border-red-600 @enderror" />
                             </div>
-                            @error('new_password')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                            @error('password','updatePassword')
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -65,15 +66,15 @@
 
                         <!-- Confirm Password -->
                         <div class="col-span-full">
-                            <label for="new_password_confirmation"
+                            <label for="password_confirmation"
                                 class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
                             <div class="mt-2">
-                                <input id="new_password_confirmation" name="new_password_confirmation" type="password"
+                                <input id="password_confirmation" name="password_confirmation" type="password"
                                     autocomplete="confirm-password" placeholder="••••••••"
-                                    class="block w-full rounded-md border-0 p-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 @error('password') border-2 border-red-600 @enderror" />
+                                    class="block w-full rounded-md border-0 p-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 @error('password_confirmation') border-2 border-red-600 @enderror" />
                             </div>
-                            @error('new_password_confirmation')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                            @error('password_confirmation','updatePassword')
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror

@@ -80,12 +80,20 @@
                             <a href="{{ route('profile.edit') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                                 tabindex="-1" id="user-menu-item-1">Edit Profile</a>
-                            <a href="{{ route('profile.setting') }}"
+                            <a href="{{ route('password.edit') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                                 tabindex="-1" id="user-menu-item-1">Setting</a>
-                            <a href="{{ route('logout') }}"
+                            {{-- <a href="{{ route('logout') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-                                tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                tabindex="-1" id="user-menu-item-2">Sign out</a> --}}
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-2"
+                                    onclick="event.preventDefault();
+                                    this.closest('form').submit();">Sign out</a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -150,11 +158,19 @@
                     <a href="{{ route('profile.edit') }}"
                         class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Edit
                         Profile</a>
-                    <a href="{{ route('profile.setting') }}"
+                    <a href="{{ route('password.edit') }}"
                         class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Setting</a>
-                    <a href="{{ route('logout') }}"
+                    {{-- <a href="{{ route('logout') }}"
                         class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Sign
-                        out</a>
+                        out</a> --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                            tabindex="-1" id="user-menu-item-2"
+                            onclick="event.preventDefault();
+                            this.closest('form').submit();">Sign out</a>
+                    </form>
                 </div>
             </div>
         </div>

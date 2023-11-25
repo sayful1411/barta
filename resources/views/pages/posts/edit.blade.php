@@ -4,14 +4,14 @@
 
 @section('content')
     @if (session('success'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
             role="alert">
             <span class="font-medium">{{ session('success') }}</span>
         </div>
     @endif
     <!-- User Specific Posts Feed -->
     @error('barta')
-        <div class="p-2 m-0 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+        <div class="p-2 m-0 text-sm text-red-500 rounded-lg" role="alert">
             {{ $message }}
         </div>
     @enderror

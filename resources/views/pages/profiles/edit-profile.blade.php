@@ -4,13 +4,13 @@
 
 @section('content')
     @if (session('success'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
             role="alert">
             <span class="font-medium">{{ session('success') }}</span>
         </div>
     @endif
     <!-- Profile Edit Form -->
-    <form action="{{ route('profile.edit.submit') }}" method="POST">
+    <form method="POST" action="{{ route('profile.update') }}">
         @csrf
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
@@ -34,7 +34,7 @@
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6  @error('fname') border-2 border-red-600 @enderror" />
                             </div>
                             @error('fname')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -49,7 +49,7 @@
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('lname') border-2 border-red-600 @enderror" />
                             </div>
                             @error('lname')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -64,7 +64,7 @@
                                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('email') border-2 border-red-600 @enderror" />
                             </div>
                             @error('email')
-                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                                <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -83,7 +83,7 @@
                             Write a few sentences about yourself.
                         </p>
                         @error('bio')
-                            <div class="p-2 mb-1 text-sm text-red-500 rounded-lg dark:text-red-500" role="alert">
+                            <div class="p-2 mb-1 text-sm text-red-500 rounded-lg" role="alert">
                                 {{ $message }}
                             </div>
                         @enderror
