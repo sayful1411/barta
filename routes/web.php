@@ -17,9 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::get('/users/{username}', [UserController::class, 'index'])->name('users.profile');
 
-    Route::resource('/posts', PostController::class)->except(['index', 'create']);
+    Route::resource('/posts', PostController::class)->except(['create']);
 
-    Route::resource('posts.comments', CommentController::class)->except(['index', 'create', 'show']);
+    Route::resource('posts.comments', CommentController::class)->except(['create', 'show']);
 });
 
 require __DIR__.'/auth.php';
