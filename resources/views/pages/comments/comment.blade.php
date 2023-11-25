@@ -50,7 +50,6 @@
                                 class="inline pe-2 py-2 me-2 text-sm text-gray-700 hover:underline">Edit</a>
                             {{-- <a data-post-id="{{ $comment->id }}" @click="modalOpen=true"
                                 class="inline pe-2 py-2 text-sm text-gray-700 hover:underline">Delete</a> --}}
-
                             <div x-data="{ modalOpen: false }" @keydown.escape.window="modalOpen = false"
                                 :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto inline">
                                 <a data-post-id="{{ $comment->post_id }}" data-comment-id="{{ $comment->id }}"
@@ -92,8 +91,11 @@
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <input type="hidden" name="post_delete_id" id="post_delete_id">
-                                                <input type="hidden" name="comment_delete_id" id="comment_delete_id">
+                                                <input type="hidden" class="post_delete_id" name="post_delete_id"
+                                                    data-comment-id="{{ $comment->id }}"
+                                                    value="{{ $comment->post_id }}">
+                                                <input type="hidden" class="comment_delete_id" name="comment_delete_id"
+                                                    data-comment-id="{{ $comment->id }}" value="{{ $comment->id }}">
                                                 <div class="relative w-auto pb-8">
                                                     <p>Do you really want to delete this post?</p>
                                                 </div>
@@ -129,8 +131,11 @@
                 var postId = $(this).data('post-id');
                 var commentId = $(this).data('comment-id');
 
-                $('#post_delete_id').val(postId);
-                $('#comment_delete_id').val(commentId);
+                var postInput = $('.post_delete_id[data-comment-id="' + commentId + '"]');
+                var commentInput = $('.comment_delete_id[data-comment-id="' + commentId + '"]');
+
+                postInput.val(postId);
+                commentInput.val(commentId);
             });
         });
     </script>

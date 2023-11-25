@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,12 +35,10 @@ class CommentController extends Controller
             "comment" => ["required", "string", "max:200"],
         ]);
 
-        DB::table('comments')->insert([
+        Comment::create([
             'user_id' => $userID,
             'post_id' => $postID,
-            'description' => $validated['comment'],
-            'created_at' => now(),
-            'updated_at' => now(),
+            'description' => $validated['comment']
         ]);
 
         return redirect()->back()->with('success', 'Comment Added');
@@ -57,14 +57,7 @@ class CommentController extends Controller
      */
     public function edit($postID, $commentID)
     {
-        $comment = DB::table('comments')
-            ->where('id', $commentID)
-            ->where('post_id', $postID)
-            ->first();
-
-        if (!$comment) {
-            return abort(404); // Comment not found
-        }
+        $comment = Comment::where('id', $commentID)->where('post_id', $postID)->firstOrFail();
 
         if (auth()->user()->id != $comment->user_id) {
             return abort(401); // unauthorized
@@ -82,15 +75,13 @@ class CommentController extends Controller
             'comment' => ['required', 'string', 'max:200'],
         ]);
 
-        $post = DB::table('posts')->where('id', $postID)->first();
+        $post = Post::where('id', $postID)->firstOrFail();
 
-        DB::table('comments')
-            ->where('id', $commentID)
-            ->where('post_id', $postID)
-            ->update([
-                'description' => $validated['comment'],
-                'updated_at' => now(),
-            ]);
+        Comment::where('id', $commentID)
+                ->where('post_id', $postID)
+                ->update([
+                    'description' => $validated['comment']
+                ]);
 
         $postShowRoute = route('posts.show', $post->uuid);
 
@@ -105,22 +96,12 @@ class CommentController extends Controller
         $postID = $request->post_delete_id;
         $commentID = $request->comment_delete_id;
 
-        $comment = DB::table('comments')
-            ->where('id', $commentID)
-            ->where('post_id', $postID)
-            ->first();
-
-        if (!$comment) {
-            return abort(404); // Comment not found
-        }
-
+        $comment = Comment::where('id', $commentID)->where('post_id', $postID)->firstOrFail();
         if (auth()->user()->id != $comment->user_id) {
             return abort(401); // unauthorized
         }
 
-        DB::table("comments")->where("id", $commentID)
-            ->where('post_id', $postID)
-            ->delete();
+        Comment::where("id", $commentID)->where('post_id', $postID)->delete();
 
         return redirect()->back()->with("success", "comment deleted");
     }
