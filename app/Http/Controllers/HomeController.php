@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function indexPage()
     {
-        $posts = Post::with('user', 'comments')->get();
+        $posts = Post::with('user', 'comments')->orderByDesc('created_at')->get();
 
         return view("index", compact("posts"));
     }

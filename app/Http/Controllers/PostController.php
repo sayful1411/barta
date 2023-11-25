@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
+use App\Models\Post;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -34,12 +36,10 @@ class PostController extends Controller
         $validatedPost = $request->validated();
         $userID = auth()->user()->id;
 
-        DB::table("posts")->insert([
+        Post::create([
             "uuid" => (string) Str::uuid(),
             "user_id" => $userID,
             "description" => $validatedPost["barta"],
-            "created_at" => now(),
-            "updated_at" => now(),
         ]);
 
         return redirect()->route("index")->with("success", "Post Created");
@@ -50,30 +50,11 @@ class PostController extends Controller
      */
     public function show(string $uuid)
     {
-        $post = DB::table("posts")
-            ->join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'users.fname as user_fname', 'users.lname as user_lname', 'users.username as user_username', 'users.email as user_email')
-            ->where("uuid", $uuid)
-            ->first();
+        $post = Post::with('user')->where('uuid', $uuid)->firstOrFail();
 
-        if ($post == null) {
-            return abort(404);
-        }
+        $post->incrementViewCount();
 
-        $post->created_at = Carbon::parse($post->created_at);
-
-        DB::table('posts')->where('id',$post->id)->increment('view_count');
-
-        $comments = DB::table('comments')
-                        ->join('users', 'users.id', '=', 'comments.user_id')
-                        ->select('comments.*', 'users.fname as user_fname', 'users.lname as user_lname', 'users.username as username')
-                        ->where('post_id', $post->id)
-                        ->get();
-
-        $comments = $comments->map(function ($comment) {
-            $comment->created_at = Carbon::parse($comment->created_at);
-            return $comment;
-        });
+        $comments = Comment::with('user')->where('post_id', $post->id)->get();
 
         return view("pages.posts.single-posts", compact("post", "comments"));
     }
@@ -83,17 +64,11 @@ class PostController extends Controller
      */
     public function edit(string $uuid)
     {
-        $post = DB::table("posts")->where("uuid", $uuid)->first();
+        $post = Post::where('uuid', $uuid)->firstOrFail();
 
-        if ($post == null) {
-            return abort(404);
-        }
-
-        if(auth()->user()->id != $post->user_id) {
+        if (auth()->user()->id != $post->user_id) {
             return to_route("index");
         }
-
-        $post->created_at = Carbon::parse($post->created_at);
 
         return view("pages.posts.edit", compact("post"));
     }
@@ -105,12 +80,9 @@ class PostController extends Controller
     {
         $validatedPost = $request->validated();
 
-        DB::table("posts")
-            ->where("uuid", $uuid)
-            ->update([
-                "description" => $validatedPost["barta"],
-                "updated_at" => now(),
-            ]);
+        Post::where('uuid', $uuid)->update([
+            "description" => $validatedPost["barta"]
+        ]);
 
         return redirect()->back()->with("success", "Post Updated");
     }
@@ -122,18 +94,14 @@ class PostController extends Controller
     {
         $postId = $request->post_delete_id;
 
-        $post = DB::table("posts")->where("id", $postId)->first();
+        $post = Post::where('id', $postId)->firstOrFail();
 
-        if ($post == null) {
-            return abort(404);
-        }
-
-        if(auth()->user()->id != $post->user_id) {
+        if (auth()->user()->id != $post->user_id) {
             return to_route("index");
         }
 
-        DB::table("posts")->where("id", $postId)->delete();
+        Post::where('id', $postId)->delete();
 
-        return to_route("index")->with("success","Post deleted");
+        return to_route("index")->with("success", "Post deleted");
     }
 }

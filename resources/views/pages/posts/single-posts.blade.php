@@ -12,21 +12,21 @@
                 <div class="flex items-center space-x-3">
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
-                        <a href="{{ route('users.profile', $post->user_username) }}"
+                        <a href="{{ route('users.profile', $post->user->username) }}"
                             class="hover:underline font-semibold line-clamp-1">
-                            {{ $post->user_fname . ' ' . $post->user_lname }}
+                            {{ $post->user->fname . ' ' . $post->user->lname }}
                         </a>
 
-                        <a href="{{ route('users.profile', $post->user_username) }}"
+                        <a href="{{ route('users.profile', $post->user->username) }}"
                             class="hover:underline text-sm text-gray-500 line-clamp-1">
-                            {{ '@' . $post->user_username }}
+                            {{ '@' . $post->user->username }}
                         </a>
                     </div>
                     <!-- /User Info -->
                 </div>
 
                 <!-- Card Action Dropdown -->
-                @if (auth()->user()->id == $post->user_id)
+                @if (auth()->user()->id == $post->user->id)
                     <div class="flex flex-shrink-0 self-center" x-data="{ open: false }">
                         <div class="relative inline-block text-left">
                             <div>
@@ -123,7 +123,7 @@
 
         <!-- Date Created & View Stat -->
         <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
-            <span class="">{{ $post->created_at->diffForHumans() }}</span>
+            <span class="">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
             <span class="">•</span>
             <span>{{ $comments->count() }} comments</span>
             <span class="">•</span>

@@ -9,6 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'uuid', 'user_id', 'description'
+    ];
+
+    public function incrementViewCount()
+    {
+        $this->increment('view_count');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

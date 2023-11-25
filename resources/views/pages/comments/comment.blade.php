@@ -14,14 +14,14 @@
                             <div class="flex items-center space-x-3">
                                 <!-- User Info -->
                                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
-                                    <a href="{{ route('users.profile', $comment->username) }}"
+                                    <a href="{{ route('users.profile', $comment->user->username) }}"
                                         class="hover:underline font-semibold line-clamp-1">
-                                        {{ $comment->user_fname . ' ' . $comment->user_lname }}
+                                        {{ $comment->user->fname . ' ' . $comment->user_lname }}
                                     </a>
 
-                                    <a href="{{ route('users.profile', $comment->username) }}"
+                                    <a href="{{ route('users.profile', $comment->user->username) }}"
                                         class="hover:underline text-sm text-gray-500 line-clamp-1">
-                                        {{ '@' . $comment->username }}
+                                        {{ '@' . $comment->user->username }}
                                     </a>
                                 </div>
                                 <!-- /User Info -->
@@ -41,10 +41,10 @@
 
                     <!-- Date Created -->
                     <div class="flex items-center gap-2 text-gray-500 text-xs">
-                        <span class="">{{ $comment->created_at->diffForHumans() }}</span>
+                        <span class="">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</span>
                     </div>
 
-                    @if (auth()->user()->id == $comment->user_id)
+                    @if (auth()->user()->id == $comment->user->id)
                         <div class="mt-3">
                             <a href="{{ route('posts.comments.edit', [$comment->post_id, $comment->id]) }}"
                                 class="inline pe-2 py-2 me-2 text-sm text-gray-700 hover:underline">Edit</a>
