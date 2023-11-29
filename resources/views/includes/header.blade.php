@@ -20,6 +20,11 @@
                             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-600 hover:border-gray-300 hover:text-gray-800">People</a>
                     </div>
                 </div>
+                {{-- Search Here --}}
+                <form action="" method="POST" class="flex items-center">
+                    <input type="text" placeholder="Search..."
+                        class="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none">
+                </form>
                 <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
                     <!-- This Button Should Be Hidden on Mobile Devices -->
                     <a href="{{ route('index') }}">
@@ -92,7 +97,8 @@
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                                     tabindex="-1" id="user-menu-item-2"
                                     onclick="event.preventDefault();
-                                    this.closest('form').submit();">Sign out</a>
+                                    this.closest('form').submit();">Sign
+                                    out</a>
                             </form>
                         </div>
                     </div>
@@ -169,7 +175,8 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                             tabindex="-1" id="user-menu-item-2"
                             onclick="event.preventDefault();
-                            this.closest('form').submit();">Sign out</a>
+                            this.closest('form').submit();">Sign
+                            out</a>
                     </form>
                 </div>
             </div>
