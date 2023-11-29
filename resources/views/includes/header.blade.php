@@ -21,8 +21,8 @@
                     </div>
                 </div>
                 {{-- Search Here --}}
-                <form action="" method="POST" class="flex items-center">
-                    <input type="text" placeholder="Search..."
+                <form action="{{ route('search.user') }}" method="Get" class="flex items-center">
+                    <input type="text" name="search" placeholder="Search..."
                         class="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none">
                 </form>
                 <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">

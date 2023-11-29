@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/', [HomeController::class, 'indexPage'])->name('index');
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::resource('/posts', PostController::class)->except(['create']);
 
     Route::resource('posts.comments', CommentController::class)->except(['create', 'show']);
+
+    Route::get('/users', SearchController::class)->name('search.user');
 });
 
 require __DIR__.'/auth.php';
