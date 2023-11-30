@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserProfileRequest;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -53,8 +54,9 @@ class ProfileController extends Controller
             // Delete previous avatar
             $user->clearMediaCollection('avatar');
 
+            $newFileName = Str::random(10) . time() . '.' . $request->file('avatar')->extension();
             // Add media to the media library
-            $user->addMediaFromRequest('avatar')->toMediaCollection('avatar', 'profile_photos');
+            $user->addMediaFromRequest('avatar')->usingFileName($newFileName)->toMediaCollection('avatar', 'profile_photos');
         }
 
         return redirect()->back()->with('success', 'User information updated successfully');
