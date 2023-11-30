@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserProfileRequest;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UserProfileRequest;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -14,12 +14,15 @@ class ProfileController extends Controller
     {
         $loggedInUserId = Auth::id();
 
-        $posts = Post::with(['user', 'comments'])
+        $posts = Post::withCount(['user', 'comments'])
             ->where('posts.user_id', $loggedInUserId)
             ->orderByDesc('created_at')
             ->get();
 
-        return view("pages.profiles.profile", compact("posts"));
+        // Calculate total comments
+        $totalComments = $posts->sum('comments_count');
+
+        return view("pages.profiles.profile", compact("posts", "totalComments"));
     }
 
     public function edit()
