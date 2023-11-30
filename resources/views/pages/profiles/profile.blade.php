@@ -81,18 +81,25 @@
         <div>
             <!-- Card Bottom Action Buttons -->
             <div>
+                <div x-data="imgPreview">
+                    <input accept="image/*" x-ref="myFile" @change="previewFile" type="file" name="picture"
+                        id="picture" class="hidden">
+                    <template x-if="imgsrc">
+                        <p>
+                            <img :src="imgsrc" class="max-w-full rounded mb-5">
+                        </p>
+                    </template>
+                </div>
                 <!-- Card Bottom Action Buttons -->
                 <div class="flex items-center justify-between">
                     <div class="flex gap-4 text-gray-600">
                         <!-- Upload Picture Button -->
-                        <div>
-                            <input type="file" name="picture" id="picture" class="hidden">
-
+                        <div >
                             <label for="picture"
                                 class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800 cursor-pointer">
                                 <span class="sr-only">Picture</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z">
                                     </path>
@@ -345,6 +352,26 @@
                 var postId = $(this).data('post-id');
                 $('#post_id').val(postId);
             });
+        });
+
+        // image preview
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('imgPreview', () => ({
+                imgsrc: null,
+                previewFile() {
+                    let file = this.$refs.myFile.files[0];
+                    if (!file || file.type.indexOf('image/') === -1) return;
+                    this.imgsrc = null;
+                    let reader = new FileReader();
+
+                    reader.onload = e => {
+                        this.imgsrc = e.target.result;
+                    }
+
+                    reader.readAsDataURL(file);
+
+                }
+            }))
         });
     </script>
 @endpush

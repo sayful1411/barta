@@ -36,13 +36,20 @@
 
         <!-- Create Post Card Bottom -->
         <div>
+            <div x-data="imgPreview">
+                <input accept="image/*" x-ref="myFile" @change="previewFile" type="file" name="picture"
+                    id="picture" class="hidden">
+                <template x-if="imgsrc">
+                    <p>
+                        <img :src="imgsrc" class="max-w-full rounded mb-5">
+                    </p>
+                </template>
+            </div>
             <!-- Card Bottom Action Buttons -->
             <div class="flex items-center justify-between">
                 <div class="flex gap-4 text-gray-600">
                     <!-- Upload Picture Button -->
-                    <div>
-                        <input type="file" name="picture" id="picture" class="hidden">
-
+                    <div >
                         <label for="picture"
                             class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800 cursor-pointer">
                             <span class="sr-only">Picture</span>
@@ -123,8 +130,8 @@
                         <div class="flex items-center space-x-3">
                             {{-- User avatar --}}
                             <div class="flex-shrink-0">
-                                <img class="h-10 w-10 rounded-full object-cover"
-                                    src="{{ $post->user->avatar_url }}" alt="{{ $post->user->fname }}">
+                                <img class="h-10 w-10 rounded-full object-cover" src="{{ $post->user->avatar_url }}"
+                                    alt="{{ $post->user->fname }}">
                             </div>
                             <!-- User Info -->
                             <div class="text-gray-900 flex flex-col min-w-0 flex-1">
@@ -163,8 +170,8 @@
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1" style="display: none;">
                                         <a href="{{ route('posts.edit', $post->uuid) }}"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-                                            tabindex="-1" id="user-menu-item-0">Edit</a>
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Edit</a>
                                         <div x-data="{ modalOpen: false }" @keydown.escape.window="modalOpen = false"
                                             :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
                                             <a data-post-id="{{ $post->id }}" @click="modalOpen=true"
@@ -306,6 +313,26 @@
                 var postId = $(this).data('post-id');
                 $('#post_id').val(postId);
             });
+        });
+
+        // image preview
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('imgPreview', () => ({
+                imgsrc: null,
+                previewFile() {
+                    let file = this.$refs.myFile.files[0];
+                    if (!file || file.type.indexOf('image/') === -1) return;
+                    this.imgsrc = null;
+                    let reader = new FileReader();
+
+                    reader.onload = e => {
+                        this.imgsrc = e.target.result;
+                    }
+
+                    reader.readAsDataURL(file);
+
+                }
+            }))
         });
     </script>
 @endpush
