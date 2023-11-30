@@ -10,6 +10,11 @@
         <header>
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
+                    {{-- User Avatar --}}
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full object-cover" src="{{ $post->user->avatar_url }}"
+                            alt="{{ $post->user->fname }}">
+                    </div>
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                         <a href="{{ route('users.profile', $post->user->username) }}"
@@ -138,14 +143,6 @@
             <!-- Create Comment Card Top -->
             <div>
                 <div class="flex items-start /space-x-3/">
-                    <!-- User Avatar -->
-                    <!-- <div class="flex-shrink-0">-->
-                    <!--              <img-->
-                    <!--                class="h-10 w-10 rounded-full object-cover"-->
-                    <!--                src="https://avatars.githubusercontent.com/u/831997"-->
-                    <!--                alt="Ahmed Shamim" />-->
-                    <!--            </div> -->
-                    <!-- /User Avatar -->
 
                     <!-- Auto Resizing Comment Box -->
                     <div class="text-gray-700 font-normal w-full">

@@ -12,6 +12,11 @@
                     <header>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-3">
+                                {{-- User Avatar --}}
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full object-cover" src="{{ $comment->user->avatar_url }}"
+                                        alt="{{ $comment->user->fname }}">
+                                </div>
                                 <!-- User Info -->
                                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                                     <a href="{{ route('users.profile', $comment->user->username) }}"

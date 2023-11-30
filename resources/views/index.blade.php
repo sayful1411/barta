@@ -23,8 +23,8 @@
             <div class="flex items-start /space-x-3/">
                 {{-- User Avatar --}}
                 <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full object-cover" src="https://avatars.githubusercontent.com/u/61485238"
-                        alt="Al Nahian">
+                    <img class="h-10 w-10 rounded-full object-cover" src="{{ auth()->user()->avatar_url }}"
+                        alt="{{ auth()->user()->fname }}">
                 </div>
                 <!-- Content -->
                 <div class="text-gray-700 font-normal w-full">
@@ -124,7 +124,7 @@
                             {{-- User avatar --}}
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full object-cover"
-                                    src="https://avatars.githubusercontent.com/u/61485238" alt="Al Nahian">
+                                    src="{{ $post->user->avatar_url }}" alt="{{ $post->user->fname }}">
                             </div>
                             <!-- User Info -->
                             <div class="text-gray-900 flex flex-col min-w-0 flex-1">

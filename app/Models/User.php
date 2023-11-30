@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +25,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'bio'
+        'bio',
+        'image'
     ];
 
     /**
@@ -54,5 +57,25 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        $avatar = $this->getFirstMedia('avatar');
+
+        if ($avatar) {
+            return $avatar->getUrl();
+        }
+
+        // Generate placeholder image URL
+        return $this->generatePlaceholderImage();
+    }
+
+    protected function generatePlaceholderImage()
+    {
+        $initials = strtoupper(substr($this->fname, 0, 1) . substr($this->lname, 0, 1));
+        $placeholderImage = "https://via.placeholder.com/124?text=$initials";
+
+        return $placeholderImage;
     }
 }

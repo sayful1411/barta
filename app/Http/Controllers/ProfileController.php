@@ -38,12 +38,24 @@ class ProfileController extends Controller
         // get the authenticated user's id
         $userID = Auth::user()->id;
 
-        User::where('id', $userID)->update([
+        // Retrieve the user instance
+        $user = User::find($userID);
+
+        // Update user attributes
+        $user->update([
             'fname' => $validated['fname'],
             'lname' => $validated['lname'],
             'email' => $validated['email'],
-            'bio' => $validated['bio']
+            'bio' => $validated['bio'],
         ]);
+
+        if ($request->hasFile('avatar')) {
+            // Delete previous avatar
+            $user->clearMediaCollection('avatar');
+
+            // Add media to the media library
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatar', 'profile_photos');
+        }
 
         return redirect()->back()->with('success', 'User information updated successfully');
     }
