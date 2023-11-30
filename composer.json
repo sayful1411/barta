@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "nesbot/carbon": "^2.71"
+        "nesbot/carbon": "^2.71",
+        "spatie/laravel-medialibrary": "^10.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",

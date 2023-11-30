@@ -56,6 +56,29 @@ return [
             'throw' => false,
         ],
 
+        // Default media disk
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path('media'),
+            'url' => env('APP_URL') . '/media',
+        ],
+
+        // Disk for post images
+        'post_images' => [
+            'driver' => 'local',
+            'root' => public_path('media/post-images'),
+            'url' => env('APP_URL') . '/media/post-images',
+            'visibility' => 'public',
+        ],
+
+        // Disk for profile photos
+        'profile_photos' => [
+            'driver' => 'local',
+            'root' => public_path('media/profile-photos'),
+            'url' => env('APP_URL') . '/media/profile-photos',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*
