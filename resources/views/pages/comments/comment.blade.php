@@ -85,7 +85,7 @@
                                                 x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
                                                 class="relative w-full py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-lg sm:rounded-lg">
                                                 <div class="flex items-center justify-between pb-3">
-                                                    <h3 class="text-lg font-semibold">Delete Post</h3>
+                                                    <h3 class="text-lg font-semibold">Delete Comment</h3>
                                                     <button type="button" @click="modalOpen=false"
                                                         class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50">
                                                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@
                                                 <input type="hidden" class="comment_delete_id" name="comment_delete_id"
                                                     data-comment-id="{{ $comment->id }}" value="{{ $comment->id }}">
                                                 <div class="relative w-auto pb-8">
-                                                    <p>Do you really want to delete this post?</p>
+                                                    <p>Do you really want to delete this comment?</p>
                                                 </div>
                                                 <div
                                                     class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
