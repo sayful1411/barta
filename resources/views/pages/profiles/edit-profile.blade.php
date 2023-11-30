@@ -22,6 +22,7 @@
                 </p>
 
                 <div class="mt-10 border-b border-gray-900/10 pb-12">
+                    {{-- @dd(auth()->user()) --}}
                     <div x-data="{ avatarPreview: '{{ auth()->user()->avatar_url }}' }" class="col-span-full mt-10 pb-10">
                         <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Photo</label>
                         <div class="mt-2 flex items-center gap-x-3">

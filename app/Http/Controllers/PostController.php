@@ -36,11 +36,17 @@ class PostController extends Controller
         $validatedPost = $request->validated();
         $userID = auth()->user()->id;
 
-        Post::create([
+        $post = Post::create([
             "uuid" => (string) Str::uuid(),
             "user_id" => $userID,
             "description" => $validatedPost["barta"],
         ]);
+
+        if ($request->hasFile('picture')) {
+            $newFileName = Str::random(10) . time() . '.' . $request->file('picture')->extension();
+            // Add media to the media library
+            $post->addMediaFromRequest('picture')->usingFileName($newFileName)->toMediaCollection('post_image', 'post_images');
+        }
 
         return redirect()->route("index")->with("success", "Post Created");
     }
@@ -78,11 +84,23 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, string $uuid)
     {
+        // dd($request->all());
         $validatedPost = $request->validated();
 
-        Post::where('uuid', $uuid)->update([
+        $post = Post::where('uuid', $uuid)->firstOrFail();
+
+        $post->update([
             "description" => $validatedPost["barta"]
         ]);
+
+        if ($request->hasFile('picture')) {
+            // Delete previous post image
+            $post->clearMediaCollection('post_image');
+
+            $newFileName = Str::random(10) . time() . '.' . $request->file('picture')->extension();
+            // Add media to the media library
+            $post->addMediaFromRequest('picture')->usingFileName($newFileName)->toMediaCollection('post_image', 'post_images');
+        }
 
         return redirect()->back()->with("success", "Post Updated");
     }

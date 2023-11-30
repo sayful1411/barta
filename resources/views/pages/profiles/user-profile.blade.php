@@ -141,7 +141,9 @@
 
             <!-- Content -->
             <a href="{{ route('posts.show', $post->uuid) }}">
-                <div class="py-4 text-gray-700 font-normal">
+                <div class="py-4 text-gray-700 font-normal space-y-2">
+                    <img class="min-h-auto w-full rounded-lg object-cover max-h-64 md:max-h-72"
+                        src="{{ $post->getFirstMediaUrl('post_image') }}" alt="">
                     <p>
                         {!! nl2br($post->description) !!}
                     </p>

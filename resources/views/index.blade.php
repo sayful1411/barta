@@ -37,8 +37,8 @@
         <!-- Create Post Card Bottom -->
         <div>
             <div x-data="imgPreview">
-                <input accept="image/*" x-ref="myFile" @change="previewFile" type="file" name="picture"
-                    id="picture" class="hidden">
+                <input accept="image/*" x-ref="myFile" @change="previewFile" type="file" name="picture" id="picture"
+                    class="hidden">
                 <template x-if="imgsrc">
                     <p>
                         <img :src="imgsrc" class="max-w-full rounded mb-5">
@@ -49,7 +49,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex gap-4 text-gray-600">
                     <!-- Upload Picture Button -->
-                    <div >
+                    <div>
                         <label for="picture"
                             class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800 cursor-pointer">
                             <span class="sr-only">Picture</span>
@@ -243,7 +243,9 @@
 
                 <!-- Content -->
                 <a href="{{ route('posts.show', $post->uuid) }}">
-                    <div class="py-4 text-gray-700 font-normal">
+                    <div class="py-4 text-gray-700 font-normal space-y-2">
+                        <img class="min-h-auto w-full rounded-lg object-cover max-h-64 md:max-h-72"
+                            src="{{ $post->getFirstMediaUrl('post_image') }}" alt="">
                         <p>
                             {!! nl2br($post->description) !!}
                         </p>
