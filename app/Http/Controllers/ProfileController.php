@@ -39,13 +39,11 @@ class ProfileController extends Controller
     {
         $validated = $request->validated();
 
-        // get the authenticated user's id
         $userID = Auth::user()->id;
 
-        // Retrieve the user instance
         $user = User::find($userID);
 
-        // Update user attributes
+        // Update user
         $user->update([
             'fname' => $validated['fname'],
             'lname' => $validated['lname'],
@@ -56,7 +54,7 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             // Delete previous avatar
             $user->clearMediaCollection('avatar');
-
+            // generate new name
             $newFileName = Str::random(10) . time() . '.' . $request->file('avatar')->extension();
             // Add media to the media library
             $user->addMediaFromRequest('avatar')->usingFileName($newFileName)->toMediaCollection('avatar', 'profile_photos');

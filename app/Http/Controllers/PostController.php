@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Comment;
 use App\Models\Post;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -43,6 +41,7 @@ class PostController extends Controller
         ]);
 
         if ($request->hasFile('picture')) {
+            // generate new name
             $newFileName = Str::random(10) . time() . '.' . $request->file('picture')->extension();
             // Add media to the media library
             $post->addMediaFromRequest('picture')->usingFileName($newFileName)->toMediaCollection('post_image', 'post_images');
@@ -84,7 +83,6 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, string $uuid)
     {
-        // dd($request->all());
         $validatedPost = $request->validated();
 
         $post = Post::where('uuid', $uuid)->firstOrFail();
@@ -96,7 +94,7 @@ class PostController extends Controller
         if ($request->hasFile('picture')) {
             // Delete previous post image
             $post->clearMediaCollection('post_image');
-
+            // generate new name
             $newFileName = Str::random(10) . time() . '.' . $request->file('picture')->extension();
             // Add media to the media library
             $post->addMediaFromRequest('picture')->usingFileName($newFileName)->toMediaCollection('post_image', 'post_images');
