@@ -21,6 +21,21 @@
                 <p class="text-gray-700">{{ $user->bio }}</p>
             </div>
             <!-- / User Meta -->
+            <!-- Profile Stats -->
+        <div class="flex flex-row gap-16 justify-center text-center items-center">
+            <!-- Total Posts Count -->
+            <div class="flex flex-col justify-center items-center">
+                <h4 class="sm:text-xl font-bold">{{ $totalPosts }}</h4>
+                <p class="text-gray-600">Posts</p>
+            </div>
+
+            <!-- Total Comments Count -->
+            <div class="flex flex-col justify-center items-center">
+                <h4 class="sm:text-xl font-bold">{{ $totalComments }}</h4>
+                <p class="text-gray-600">Comments</p>
+            </div>
+        </div>
+        <!-- /Profile Stats -->
         </div>
         <!-- /Profile Info -->
     </section>

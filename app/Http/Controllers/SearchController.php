@@ -14,16 +14,22 @@ class SearchController extends Controller
     {
         $searchTerm = $request->input('search');
 
-        $user = User::with('posts')->where('fname', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('lname', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('username', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
+        $user = User::withCount('comments', 'posts')
+                    ->with('posts.media', 'posts.comments')
+                    ->where('fname',  $searchTerm)
+                    ->orWhere('lname',  $searchTerm)
+                    ->orWhere('username',  $searchTerm)
+                    ->orWhere('email',  $searchTerm)
                     ->first();
 
         if($user == null){
             return view('404');
         }
 
-        return view('pages.profiles.search-profile', compact('user'));
+        // Calculate total posts and comments
+        $totalPosts = $user->posts_count;
+        $totalComments = $user->comments_count;
+
+        return view('pages.profiles.search-profile', compact('user', 'totalPosts', 'totalComments'));
     }
 }

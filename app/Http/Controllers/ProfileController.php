@@ -17,7 +17,8 @@ class ProfileController extends Controller
     {
         $loggedInUserId = Auth::id();
 
-        $posts = Post::withCount(['user', 'comments'])
+        $posts = Post::withCount('comments')
+            ->with('media', 'user.media', 'comments')
             ->where('posts.user_id', $loggedInUserId)
             ->orderByDesc('created_at')
             ->get();
