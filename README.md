@@ -1,49 +1,55 @@
 
-# BARTA APP PROJECT
+# BARTA PROJECT
 
-The Barta app I'm developing is a social networking app.
+The Barta app I've developed is a social networking app
 
 
 
-# Developing step-by-step
-**In the first week, I implemented the following features:**
+# How you setup and run this project -
 
- - User registration 
- - User login 
- - User profile view 
- - User profile update
+> step 1: clone repo 
 
-**In the second week, I implemented the following features:**
+    https://github.com/sayful1411/barta
 
- - Post create
- - Post update (by author)
- - Post delete (by author)
- - Show all post in home page 
- - Show post in profile page (specific users posts)
+> step 2: go to barta
 
-## Important notes
+```bash
+  cd barta
+  ``` 
+  
+>  step 3: edit .env.example to .env
+   
+> step 4: run composer install
 
-**I used the following the first week**
+```bash
+  composer install
+  ``` 
+  
+  > step 5: generate a new key
+  
+```bash
+  php artisan key:generate
+  ``` 
+  
+  >  step 6: create a new database 
+  
+  >  step 7: setup .env 
+  
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1  
+    DB_PORT=3306  
+    DB_DATABASE=barta 
+    DB_USERNAME=root 
+    DB_PASSWORD=
+    
+  >  step 8: run migration 
 
- - Laravel has been installed
- - Configured the environment (.env)
- - setup template from view directory
- - run database migration (***users***)
- - defined logic in the controller
- - made form request for validation
- - used view composer 
- - used AppServiceProvider for compos class
- - defined routes
- - changed default timezone UTC to Asia/Dhaka 
-
-**I used the following the second week**
-
- - Remove composer view
- - run database migration (***posts***)
- - create form request for post validation
- - Changed main route from '/home' to '/' in RouteServiceProvider 
- - Used resource controller for posts
- - Used X time ago library (***nesbot/carbon***)
- - Used middlewares (**auth, web**)
- - Implement auto-expand text area
- - Showing view count
+```bash
+  php artisan migrate --seed
+  ``` 
+  
+  >  step 9: run project
+  
+```bash
+  php artisan serve
+  ``` 
