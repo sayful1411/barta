@@ -16,6 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/update-profile', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::delete('/delete-profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/users/{username}', [UserController::class, 'index'])->name('users.profile');
 
     Route::resource('/posts', PostController::class)->except(['create']);

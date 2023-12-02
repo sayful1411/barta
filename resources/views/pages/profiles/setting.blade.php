@@ -95,4 +95,6 @@
         </div>
     </form>
     <!-- /Password Change Form -->
+    {{-- delete user --}}
+    @include('pages.profiles.delete-user-form')
 @endsection
