@@ -6,7 +6,7 @@ use App\Models\Post;
 
 class HomeController extends Controller
 {
-    public function indexPage()
+    public function indexPage(Post $post)
     {
         $posts = Post::with('user.media', 'media', 'comments')->orderByDesc('created_at')->get();
 
