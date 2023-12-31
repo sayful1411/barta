@@ -7,9 +7,11 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Livewire\LoadMorePosts;
 
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/', [HomeController::class, 'indexPage'])->name('index');
+    // Route::get('/', LoadMorePosts::class);
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
