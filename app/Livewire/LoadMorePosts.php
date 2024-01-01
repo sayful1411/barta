@@ -12,7 +12,7 @@ class LoadMorePosts extends Component
 
     public $per_page = 5;
 
-    function loadMore()
+    public function loadMore()
     {
         $this->per_page += 5;
     }

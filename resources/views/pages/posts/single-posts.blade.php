@@ -134,7 +134,7 @@
             <span class="">•</span>
             <span>{{ $comments->count() }} comments</span>
             <span class="">•</span>
-            <span>{{ $post->view_count }} views</span>
+            <span>{{ $post->views_count }} views</span>
         </div>
 
         <hr class="my-6" />
