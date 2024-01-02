@@ -6,6 +6,7 @@ use App\Events\CommentProcessed;
 use App\Mail\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\PostComment;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -30,11 +31,13 @@ class SendCommentNotification
         $user = User::find($userId);
         $post = Post::with('user')->find($postId);
 
-        $postUser = $post->user->email;
+        // $postUserEmail = $post->user->email;
 
-        // dd($user->fname . ' ' . $user->lname);
-        // dd(route('posts.show', $post->uuid));
+        // Mail::to($postUserEmail)->send(new Comment($user, $post));
 
-        Mail::to($postUser)->send(new Comment($user, $post));
+        $postUser = $post->user;
+        $comment = $event->comment->description;
+
+        $postUser->notify(new PostComment($user, $post, $comment));
     }
 }
