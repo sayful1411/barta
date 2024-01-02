@@ -21,14 +21,14 @@ class ReactButton extends Component
     {
         if ($this->liked) {
             $this->post->likers()->detach(Auth::id());
-            $this->post->decrement('likes_count'); // Decrement likes_count when unliking
+            $this->post->decrement('likes_count');
         } else {
             $this->post->likers()->attach(Auth::id());
-            $this->post->increment('likes_count'); // Increment likes_count when liking
+            $this->post->increment('likes_count');
         }
 
         $this->liked = !$this->liked;
-        $this->post->refresh(); // Refresh the post model to reflect the updated likers relationship
+        $this->post->refresh();
     }
 
     public function render()
