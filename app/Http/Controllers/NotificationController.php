@@ -9,12 +9,7 @@ class NotificationController extends Controller
     public function showAllNotification()
     {
         auth()->user()->unreadNotifications()->update(['read_at' => now()]);
-        return view('pages.notification');
+        $notifications = auth()->user()->notifications()->get();
+        return view('pages.notification', compact('notifications'));
     }
-
-    // public function unreadNotifications()
-    // {
-    //     $unreadNotification = auth()->user()->unreadNotifications()->get();
-    //     dd($unreadNotification);
-    // }
 }
