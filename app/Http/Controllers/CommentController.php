@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentProcessed;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -34,11 +35,13 @@ class CommentController extends Controller
             "comment" => ["required", "string", "max:200"],
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'user_id' => $userID,
             'post_id' => $postID,
             'description' => $validated['comment']
         ]);
+
+        event(new CommentProcessed($comment));
 
         return redirect()->back()->with('success', 'Comment Added');
     }
