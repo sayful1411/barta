@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::resource('posts.comments', CommentController::class)->except(['create', 'show']);
 
     Route::get('/users', SearchController::class)->name('search.user');
+
+    Route::get('/notifications', [NotificationController::class, 'showAllNotification'])->name('notifications');
 });
 
 require __DIR__.'/auth.php';
