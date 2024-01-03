@@ -4,10 +4,10 @@
             <button @click="open = !open" type="button"
                 class="rounded-full relative bg-white p-2 text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                 <span class="sr-only">View notifications</span>
-                @if ($unreadNotification->count() >= 1)
+                @if ($countUnreadNotification > 0)
                     <div
                         class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 border-1 border-white rounded-full top-0 end-0 dark:border-gray-900">
-                        {{ $unreadNotification->count() }}
+                        {{ $countUnreadNotification }}
                     </div>
 
                 @endif

@@ -61,9 +61,9 @@ class PostController extends Controller
 
         $comments = Comment::with('user')->where('post_id', $post->id)->get();
 
-        if(auth()->user()->unreadNotifications()){
-            auth()->user()->unreadNotifications()->update(['read_at' => now()]);
-        }
+        // if(auth()->user()->unreadNotifications()){
+        //     auth()->user()->unreadNotifications()->update(['read_at' => now()]);
+        // }
 
         return view("pages.posts.single-posts", compact("post", "comments"));
     }
