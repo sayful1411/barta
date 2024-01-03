@@ -7,7 +7,7 @@ use Livewire\Attributes\On;
 
 class Notification extends Component
 {
-    // #[On('echo:post-react,ReactProcessed')]
+    #[On('echo:post-react,ReactProcessed')]
     #[On('echo:post-comment,CommentProcessed')]
 
     public function render()

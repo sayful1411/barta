@@ -21,7 +21,7 @@
         </div>
 
         <!-- Dropdown menu -->
-        <div x-show="open" @click.away="open = false"
+        <div x-show="open" @click.away="open = false" x-cloak
             class="absolute -right-36 mt-3 z-10 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <div>
