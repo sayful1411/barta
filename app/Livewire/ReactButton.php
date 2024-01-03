@@ -22,19 +22,21 @@ class ReactButton extends Component
     public function toggleLike()
     {
         $userId = Auth::id();
-        $cacheKey = "like_event_fired_{$this->post->id}_{$userId}";
+        // $cacheKey = "like_event_fired_{$this->post->id}_{$userId}";
 
         if ($this->liked) {
             $this->post->likers()->detach(Auth::id());
             $this->post->decrement('likes_count');
         } else {
-            if (!Cache::get($cacheKey)) {
-                $this->post->likers()->attach(Auth::id());
-                $this->post->increment('likes_count');
-                event(new ReactProcessed($this->post));
+            // if (!Cache::get($cacheKey)) {
+            //     $this->post->likers()->attach(Auth::id());
+            //     $this->post->increment('likes_count');
+            //     event(new ReactProcessed($this->post));
 
-                Cache::put($cacheKey, true, now()->addMinutes(60));
-            }
+            //     Cache::put($cacheKey, true, now()->addMinutes(60));
+            // }
+            $this->post->likers()->attach(Auth::id());
+                $this->post->increment('likes_count');
         }
 
         $this->liked = !$this->liked;

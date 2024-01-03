@@ -143,7 +143,7 @@
                     <!-- Card Bottom Action Buttons -->
                     <div class="flex items-center justify-between">
                         <div class="flex gap-8 text-gray-600">
-                            <livewire:react-button :post="$post" />
+                            <livewire:react-button :post="$post" :key="$post->id" />
                             <!-- Comment Button -->
                             <a href="{{ route('posts.show', $post->uuid) }}" type="button"
                                 class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
