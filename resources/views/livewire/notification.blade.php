@@ -9,15 +9,14 @@
                         class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 border-1 border-white rounded-full top-0 end-0 dark:border-gray-900">
                         {{ $countUnreadNotification }}
                     </div>
-
                 @endif
 
-                    <!-- Heroicon name: outline/bell -->
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                    </svg>
+                <!-- Heroicon name: outline/bell -->
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
             </button>
         </div>
 
@@ -28,8 +27,13 @@
             <div>
                 @forelse ($unreadNotification as $item)
                     <div class="px-2 py-2 my-1 bg-slate-200">
-                        <a href="{{ $item['data']['post_url'] }}">
-                            <p>{{ $item['data']['message'] }}</p>
+                        <a href="{{ route('posts.show', $item['data']['post_id']) }}">
+                            <p>
+                                <span class="font-bold hover:text-blue">{{ $item['data']['userName'] }}</span>
+                                <span class="text-darkgb">{{ $item['data']['message'] }}</span>
+                                <span
+                                    class="font-bold text-darkgb cursor-pointer hover:text-blue">{{ $item['data']['post'] }}</span>
+                            </p>
                         </a>
                     </div>
                 @empty

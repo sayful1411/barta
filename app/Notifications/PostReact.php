@@ -39,11 +39,15 @@ class PostReact extends Notification
     {
         $postUserFirstName = $notifiable->fname;
         $postUserLastName = $notifiable->lname;
-        $postUrl = route('posts.show', $this->post->uuid);
+        // $postUrl = route('posts.show', $this->post->uuid);
 
         return [
-            'message' => "$postUserFirstName $postUserLastName reacted to your post: " . substr($this->post->description, 0, 10) . '...',
-            'post_url' => $postUrl
+            'userName' => "$postUserFirstName $postUserLastName",
+            'message' => "reacted to your post: ",
+            'post' => substr($this->post->description, 0, 10) . '...',
+            // 'post_url' => $postUrl
+            'post_id' => $this->post->uuid,
+            'username' => $notifiable->username
         ];
     }
 }

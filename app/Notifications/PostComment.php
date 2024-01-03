@@ -59,11 +59,15 @@ class PostComment extends Notification implements ShouldQueue
     {
         $postUserFirstName = $this->user->fname;
         $postUserLastName = $this->user->lname;
-        $postUrl = route('posts.show', $this->post->uuid);
+        // $postUrl = route('posts.show', $this->post->uuid);
 
         return [
-            'message' => "$postUserFirstName $postUserLastName commented on your post: " . substr($this->comment, 0, 10) . '...',
-            'post_url' => $postUrl
+            'userName' => "$postUserFirstName $postUserLastName",
+            'message' => "commented on your post: ",
+            'post' => substr($this->comment, 0, 10) . '...',
+            // 'post_url' => $postUrl
+            'post_id' => $this->post->uuid,
+            'username' => $this->user->username
         ];
     }
 }
