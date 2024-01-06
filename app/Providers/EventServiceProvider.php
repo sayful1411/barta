@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\ReactProcessed;
+use App\Events\CommentProcessed;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\SendReactNotification;
+use App\Listeners\SendCommentNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,6 +21,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        CommentProcessed::class => [
+            SendCommentNotification::class
+        ],
+        ReactProcessed::class => [
+            SendReactNotification::class
         ],
     ];
 

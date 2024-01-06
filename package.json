@@ -16,6 +16,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@alpinejs/focus": "^3.13.3"
+        "@ably/laravel-echo": "^1.0.3",
+        "@alpinejs/focus": "^3.13.3",
+        "ably": "^1.2.48"
     }
 }

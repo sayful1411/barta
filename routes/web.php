@@ -3,15 +3,14 @@
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
-use App\Livewire\LoadMorePosts;
 
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/', [HomeController::class, 'indexPage'])->name('index');
-    // Route::get('/', LoadMorePosts::class);
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
@@ -27,6 +26,11 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::resource('posts.comments', CommentController::class)->except(['create', 'show']);
 
     Route::get('/users', SearchController::class)->name('search.user');
+
+    Route::get('/notifications', [NotificationController::class, 'showAllNotification'])->name('notifications');
+    Route::patch('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead'])->name('unread.notifications');
+    Route::get('/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('markAsRead');
+
 });
 
 require __DIR__.'/auth.php';

@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'uuid' => fake()->uuid(),
             'user_id' => fake()->numberBetween(1,3),
             'description' => fake()->paragraph(5),
-            'view_count' => fake()->numerify()
+            'views_count' => fake()->numerify()
         ];
     }
 }

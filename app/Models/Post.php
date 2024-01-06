@@ -17,7 +17,7 @@ class Post extends Model implements HasMedia
 
     public function incrementViewCount()
     {
-        $this->increment('view_count');
+        $this->increment('views_count');
     }
 
     public function user()
@@ -28,5 +28,10 @@ class Post extends Model implements HasMedia
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likers()
+    {
+        return $this->belongsToMany(User::class, 'reacts')->withTimestamps();
     }
 }
