@@ -27,7 +27,7 @@
             <div>
                 @forelse ($unreadNotification as $item)
                     <div class="px-2 py-2 my-1 bg-slate-200">
-                        <a href="{{ route('posts.show', $item['data']['post_id']) }}">
+                        <a href="{{ route('markAsRead', $item['id']) }}" class="text-darkgb">
                             <p>
                                 <span class="font-bold hover:text-blue">{{ $item['data']['userName'] }}</span>
                                 <span class="text-darkgb">{{ $item['data']['message'] }}</span>

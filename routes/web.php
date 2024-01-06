@@ -28,6 +28,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/users', SearchController::class)->name('search.user');
 
     Route::get('/notifications', [NotificationController::class, 'showAllNotification'])->name('notifications');
+    Route::patch('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead'])->name('unread.notifications');
+    Route::get('/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('markAsRead');
+
 });
 
 require __DIR__.'/auth.php';
