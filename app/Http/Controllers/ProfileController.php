@@ -64,7 +64,7 @@ class ProfileController extends Controller
             $user->addMediaFromRequest('avatar')->usingFileName($newFileName)->toMediaCollection('avatar', 'profile_photos');
         }
 
-        return redirect()->back()->with('success', 'User information updated successfully');
+        return redirect()->route('profile.edit')->with('success', 'User information updated successfully');
     }
 
     public function destroy(Request $request): RedirectResponse
