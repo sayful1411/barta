@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,9 +19,11 @@ class UserSeeder extends Seeder
             'lname' => 'Arslan',
             'username' => 'alparslan1029',
             'email' => 'alp.arslan@gmail.com',
-            'password' => 'alp11111'
+            'password' => 'password'
         ]);
 
-        User::factory(2)->create();
+        User::factory(2)
+            ->has(Post::factory()->count(10))
+            ->create();
     }
 }

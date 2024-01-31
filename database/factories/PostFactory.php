@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,6 @@ class PostFactory extends Factory
     {
         return [
             'uuid' => fake()->uuid(),
-            'user_id' => fake()->numberBetween(1,3),
             'description' => fake()->paragraph(5),
             'views_count' => fake()->numerify()
         ];

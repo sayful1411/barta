@@ -96,7 +96,7 @@
                                                                     </svg>
                                                                 </button>
                                                             </div>
-                                                            <input type="hidden" name="post_delete_id" id="post_id">
+                                                            {{-- <input type="hidden" name="post_delete_id" id="post_id"> --}}
                                                             <div class="relative w-auto pb-8">
                                                                 <p>Do you really want to delete this post?</p>
                                                             </div>

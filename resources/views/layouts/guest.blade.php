@@ -27,7 +27,7 @@
                 <h1>Barta</h1>
             </a>
 
-            <a href="{{ route('login') }}">
+            {{-- <a href="{{ route('login') }}">
                 <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Sign in to your account
                 </h1>
@@ -37,7 +37,7 @@
                 <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Create a new account
                 </h1>
-            </a>
+            </a> --}}
         </div>
 
         @yield('content')
