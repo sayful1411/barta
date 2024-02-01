@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory(2)
-            ->has(Post::factory()->count(10))
+            ->hasPosts(5)
+            ->hasComments(10)
             ->create();
     }
 }
