@@ -23,4 +23,16 @@ class PostFactory extends Factory
             'views_count' => fake()->numerify()
         ];
     }
+
+    public function with_user(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            $userId = User::inRandomOrder()->first()->id;
+
+            return [
+                'user_id' => $userId,
+            ];
+        });
+    }
+
 }

@@ -8,7 +8,7 @@ it('can load the index page with posts', function () {
 
     $user = User::factory()->create();
     User::factory()->count(3)->create();
-    $posts = Post::factory()->count(5)->create();
+    $posts = Post::factory()->count(5)->with_user()->create();
 
     // Mock the Post model to return the test data
     $postMock = Mockery::mock(Post::class);
@@ -24,4 +24,6 @@ it('can load the index page with posts', function () {
 
     $response->assertViewIs('index')
         ->assertViewHas('posts', $posts);
+
+    $this->assertDatabaseCount('posts', 5);
 });
