@@ -27,17 +27,17 @@
                 <h1>Barta</h1>
             </a>
 
-            @if ($pageType === 'login')
+            {{-- <a href="{{ route('login') }}">
                 <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Sign in to your account
                 </h1>
-            @elseif($pageType === 'register')
+            </a>
+
+            <a href="{{ route('register') }}">
                 <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Create a new account
                 </h1>
-            @else
-                Default Title
-            @endif
+            </a> --}}
         </div>
 
         @yield('content')

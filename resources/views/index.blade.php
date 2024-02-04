@@ -15,6 +15,11 @@
             {{ $message }}
         </div>
     @enderror
+    @error('picture')
+        <div class="p-2 m-0 text-sm text-red-500 rounded-lg" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
     <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data"
         class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6 space-y-3 @error('barta') border-2 border-red-500 @enderror">
         @csrf

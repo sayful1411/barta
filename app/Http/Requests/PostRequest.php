@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class PostRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class PostRequest extends FormRequest
     {
         return [
             "barta" => "required|string|max:280",
-            "image" => "nullable|image|max:2048|mimes:png,jpg,gif"
+            "picture" => ["nullable","image","mimes:png,jpg,gif", File::image()->max('2mb')]
         ];
     }
 }

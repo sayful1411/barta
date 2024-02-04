@@ -10,22 +10,10 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return abort(404);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -60,10 +48,6 @@ class PostController extends Controller
         $post->incrementViewCount();
 
         $comments = Comment::with('user')->where('post_id', $post->id)->get();
-
-        // if(auth()->user()->unreadNotifications()){
-        //     auth()->user()->unreadNotifications()->update(['read_at' => now()]);
-        // }
 
         return view("pages.posts.single-posts", compact("post", "comments"));
     }
@@ -104,23 +88,20 @@ class PostController extends Controller
             $post->addMediaFromRequest('picture')->usingFileName($newFileName)->toMediaCollection('post_image', 'post_images');
         }
 
-        return redirect()->back()->with("success", "Post Updated");
+        // return redirect()->back()->with("success", "Post Updated");
+        return redirect()->route('posts.edit', $post->uuid)->with("success", "Post Updated");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Post $post)
     {
-        $postId = $request->post_delete_id;
-
-        $post = Post::where('id', $postId)->firstOrFail();
-
         if (auth()->user()->id != $post->user_id) {
             return to_route("index");
         }
 
-        Post::where('id', $postId)->delete();
+        $post->delete();
 
         return to_route("index")->with("success", "Post deleted");
     }

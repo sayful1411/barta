@@ -23,7 +23,7 @@ class SearchController extends Controller
                     ->first();
 
         if($user == null){
-            return view('404');
+            return abort(404);
         }
 
         // Calculate total posts and comments

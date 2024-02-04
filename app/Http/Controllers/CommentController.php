@@ -18,14 +18,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $postID)
@@ -43,15 +35,9 @@ class CommentController extends Controller
 
         event(new CommentProcessed($comment));
 
-        return redirect()->back()->with('success', 'Comment Added');
-    }
+        $post = Post::where('id', $postID)->firstOrFail();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-
+        return redirect()->route('posts.show', $post->uuid)->with('success', 'Comment Added');
     }
 
     /**
@@ -85,26 +71,24 @@ class CommentController extends Controller
                     'description' => $validated['comment']
                 ]);
 
-        $postShowRoute = route('posts.show', $post->uuid);
-
-        return redirect($postShowRoute)->with('success', 'comment updated');
+        return redirect()->route('posts.show', $post->uuid)->with('success', 'Comment updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Post $post, Comment $comment)
     {
-        $postID = $request->post_delete_id;
-        $commentID = $request->comment_delete_id;
+        $comment = Comment::where('id', $comment->id)->where('post_id', $post->id)->firstOrFail();
 
-        $comment = Comment::where('id', $commentID)->where('post_id', $postID)->firstOrFail();
         if (auth()->user()->id != $comment->user_id) {
             return abort(401); // unauthorized
         }
 
-        Comment::where("id", $commentID)->where('post_id', $postID)->delete();
+        $comment->delete();
 
-        return redirect()->back()->with("success", "comment deleted");
+        $post = Post::where('id', $post->id)->firstOrFail();
+
+        return redirect()->route('posts.show', $post->uuid)->with("success", "Comment deleted");
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,20 @@ class PostFactory extends Factory
     {
         return [
             'uuid' => fake()->uuid(),
-            'user_id' => fake()->numberBetween(1,3),
             'description' => fake()->paragraph(5),
             'views_count' => fake()->numerify()
         ];
     }
+
+    public function with_user(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            $userId = User::inRandomOrder()->first()->id;
+
+            return [
+                'user_id' => $userId,
+            ];
+        });
+    }
+
 }
