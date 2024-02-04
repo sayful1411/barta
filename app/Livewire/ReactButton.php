@@ -33,7 +33,7 @@ class ReactButton extends Component
             $this->post->increment('likes_count');
 
             if (!Cache::get($cacheKey)) {
-                event(new ReactProcessed($this->post));
+                event(new ReactProcessed($this->post, $userId));
 
                 Cache::put($cacheKey, true, now()->addMinutes(60));
             }

@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class PostReact extends Notification
 {
@@ -15,7 +16,7 @@ class PostReact extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Post $post)
+    public function __construct(public Post $post, public User $user)
     {
         //
     }
@@ -37,15 +38,13 @@ class PostReact extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        $postUserFirstName = $notifiable->fname;
-        $postUserLastName = $notifiable->lname;
-        // $postUrl = route('posts.show', $this->post->uuid);
+        $postUserFirstName = $this->user->fname;
+        $postUserLastName = $this->user->fname;
 
         return [
             'userName' => "$postUserFirstName $postUserLastName",
             'message' => "reacted to your post: ",
             'post' => substr($this->post->description, 0, 10) . '...',
-            // 'post_url' => $postUrl
             'post_id' => $this->post->uuid,
             'username' => $notifiable->username
         ];

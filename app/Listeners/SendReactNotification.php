@@ -23,13 +23,12 @@ class SendReactNotification
      */
     public function handle(ReactProcessed $event): void
     {
-        // dd($event->post);
-        $userId = $event->post->user_id;
+        $userId = $event->userId;
         $user = User::find($userId);
+
         $post = $event->post;
+        $postUser = $event->post->user;
 
-        // $postUser = $post->user;
-
-        $user->notify(new PostReact($post));
+        $postUser->notify(new PostReact($post, $user));
     }
 }
