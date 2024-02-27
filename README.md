@@ -52,4 +52,10 @@ The Barta app I've developed is a social networking app
   
 ```bash
   php artisan serve
+  ```
+
+  >  step 10: run queue
+  
+```bash
+  php artisan queue:work
   ``` 
