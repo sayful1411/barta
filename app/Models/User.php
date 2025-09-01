@@ -79,7 +79,7 @@ class User extends Authenticatable implements HasMedia
     protected function generatePlaceholderImage()
     {
         $initials = strtoupper(substr($this->fname, 0, 1) . substr($this->lname, 0, 1));
-        $placeholderImage = "https://via.placeholder.com/124?text=$initials";
+        $placeholderImage = "https://placehold.co/124?text=$initials";
 
         return $placeholderImage;
     }
